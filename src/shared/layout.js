@@ -4,55 +4,24 @@ import Filter from '../components/filter/filter';
 import List from '../components/list/list';
 import axios from 'axios';
 
-let users = [
-  {
-      "name": "Gandalf",
-      "function": "Developers",
-      "url": "https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2015/09/Gandalf-the-Grey.jpg"
-  },
-  {
-      "name": "Gandalf",
-      "function": "PHP",
-      "url": "https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2015/09/Gandalf-the-Grey.jpg"
-  },
-  {
-      "name": "Gandalf",
-      "function": "Infra",
-      "url": "https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2015/09/Gandalf-the-Grey.jpg"
-  },
-  {
-      "name": "Gandalf",
-      "function": "IOS",
-      "url": "https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2015/09/Gandalf-the-Grey.jpg"
-  },
-]
-
+let filtersChange = ['All','Developers', 'UX Designers', 'Visual Designers', 'Infra', 'IOS', 'PHP'];
+let filters = [];
 export default class Layout extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        count: 0,
-        loading: 'true',
-        users: users,
-        filteredList: users,
+        loading: true,
+        users: [],
+        filters: filters,
+        filteredList: [],
         selectedFilter: 'all',
       };
+
+
     }
     
     componentWillMount(){
-      axios.get('https://sheetdb.io/api/v1/smyv5xfvpjqeh', {
-        withCredentials: true,
-        headers: {
-          "Access-Control-Allow-Origin": "http://localhost:3000",
-          "Access-Control-Allow-Credentials": "true",
-          'Authorization': 'Basic',
-          "Accept": "application/json",
-          "Content-Type": "application/json",
-
-          
-
-        }
-      },
+      axios.get('https://sheetdb.io/api/v1/smyv5xfvpjqeh',
       {
         auth: {
           username: "srpwcqp2",
@@ -60,18 +29,23 @@ export default class Layout extends React.Component {
         }
       }
       )
-      .then(function (response) {
-        console.log(response);
+      .then(response => {
+        this.setState({
+          users: response.data,
+          filteredList: response.data,
+          loading: false
+          });
       })
       .catch(function (error) {
         console.log(error);
       });
-    this.setState({
-        loading: 'false'
-      });
     }
     selectFilter = filter => {
       const searchText = filter.toLowerCase()
+      filters = filtersChange.filter(row => {
+        return row.toLowerCase().indexOf(searchText) !== -1;
+      });
+      console.log(filters)
       const filteredTexts = this.state.users.filter(row => {
         return row.function.toLowerCase().indexOf(searchText) !== -1;
       });
@@ -79,7 +53,7 @@ export default class Layout extends React.Component {
         selectedFilter: filteredTexts.length > 1 ? 'all' : searchText,
         filteredList:
         searchText === 'all'
-            ? users
+            ? this.state.users
             : filteredTexts
       })
     }
@@ -99,16 +73,16 @@ export default class Layout extends React.Component {
               selectFilter={this.selectFilter} 
               filteredList={this.state.filteredList}
               selectedFilter={this.state.selectedFilter}
-
+              filters={filters}
             />
             <Filter 
               selectFilter={this.selectFilter}
               selectedFilter={this.state.selectedFilter}
+              filters={filtersChange}
             />
-            {this.state.users.length}
+            {this.state.filteredList.length}
             <List 
               users={this.state.filteredList}
-              url={users[0].url}
             />
         </div>
       );

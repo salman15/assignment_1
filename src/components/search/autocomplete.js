@@ -4,13 +4,13 @@ export default function AutoComplete(props){
     return(
         <ul>
             {
-            props.items.map((item,index) =>
+                props.filters.map((item,index) =>
                 <li key={index} 
                     onClick={filter => {
                         props.selectFilter(
-                        filter = item.function, 
+                        filter = item, 
                     )}}> 
-                    {item.function}
+                    {item}
                 </li>
             )
             }

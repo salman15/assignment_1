@@ -9,18 +9,22 @@ const spanStyle = {
 export default function filterItem(props){
     return( props.items.map((item,index) =>
             <span key={index} style={spanStyle}>
+                {console.log(
+                    props.selectedFilter,'|', item.toLowerCase(),
+                    props.selectedFilter === item.toLowerCase()
+                )}
                 <input 
                     type="radio" 
                     name="filter" 
-                    onChange={filter => {
+                    onChange={event => {
                         props.selectFilter(
-                        filter = item, 
+                        event = item, 
                     )}} 
                     value={item}
                     checked={props.selectedFilter === item.toLowerCase()}
                     /> 
                 <p style={paragraphStyle}>
-                {item}
+                    {item}
                 </p> 
             </span>
         )

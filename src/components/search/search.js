@@ -19,10 +19,12 @@ export default function Search(props){
 
             }
             {
-                showAutoComplete === true ? (<AutoComplete 
-            selectFilter={props.selectFilter} 
-            items={props.filteredList} />)
-            : null
+            showAutoComplete === true ? (<AutoComplete 
+                selectFilter={props.selectFilter} 
+                items={props.filteredList}
+                filters={props.filters}
+                 />)
+                : null
             }
             
 
