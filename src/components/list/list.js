@@ -1,37 +1,15 @@
 import React from 'react';
-import ListItem from '../list/listItem'
-let users = [
-    {
-        "name": "Gandalf",
-        "function": "Developers",
-        "url": "https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2015/09/Gandalf-the-Grey.jpg"
-    },
-    {
-        "name": "Gandalf",
-        "function": "Developers",
-        "url": "https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2015/09/Gandalf-the-Grey.jpg"
-    },
-    {
-        "name": "Gandalf",
-        "function": "Developers",
-        "url": "https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2015/09/Gandalf-the-Grey.jpg"
-    },
-    {
-        "name": "Gandalf",
-        "function": "Developers",
-        "url": "https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2015/09/Gandalf-the-Grey.jpg"
-    },
-]
+import ListItem from './listItem'
 
 const container = {
     "display": "block",
     "width": "100%",
 }
 
-export default function List(){
+export default function List(props){
     return(
         <div style={container}>
-            <ListItem  items={users}/>
+            <ListItem  items={props.users} />
         </div>
     )
 }

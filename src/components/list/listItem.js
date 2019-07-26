@@ -1,5 +1,4 @@
 import React from 'react';
-let items=[]
 
 const listItemContainer = {
     "border": "solid 1px black",
@@ -13,27 +12,28 @@ const avatarContainer = {
     'width':'100px',
     'height': '100px',
     'overflow': 'hidden',
-    'border-radius': '10px',
+    'borderRadius': '10px',
     'margin': '0px 5px'
 }
 const avatar = {
     'width':'100%',
 }
 const title = {
-    
+    'fontSize': '12px',
 }
 const job = {
-    
+    'fontSize': '12px',
+
 }
 
 export default function ListItem(props){
     return(
-        props.items.map((item) =>
-            <div style={listItemContainer} className="listItemContainer">
-                <div style={avatarContainer}><img style={avatar} src={item.url} className="avatar"/></div>
+        props.items.map((item,index) =>
+            <div key={index} style={listItemContainer} className="listItemContainer">
+                <div style={avatarContainer}><img style={avatar} src={item.url} className="avatar" alt="alt"/></div>
                 <div>
-                    <h3 className="title">{item.name}</h3>
-                    <h4 className="job">{item.function}</h4>
+                    <h3 style={title} className="title">{item.name}</h3>
+                    <h4 style={job} className="job">{item.function}</h4>
                 </div>
             </div>
         )

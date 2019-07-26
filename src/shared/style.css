@@ -28,6 +28,9 @@
   overflow-y: hidden;
   white-space: nowrap;
   padding:20px;
+  margin: 10px 0px;
+  background-color: #656565;
+  border-radius: 5px;
 }
 
 .searchInput {

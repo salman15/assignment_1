@@ -3,19 +3,57 @@ import Search from '../components/search/search'
 import Filter from '../components/filter/filter';
 import List from '../components/list/list';
 
+let users = [
+  {
+      "name": "Gandalf",
+      "function": "Developers",
+      "url": "https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2015/09/Gandalf-the-Grey.jpg"
+  },
+  {
+      "name": "Gandalf",
+      "function": "PHP",
+      "url": "https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2015/09/Gandalf-the-Grey.jpg"
+  },
+  {
+      "name": "Gandalf",
+      "function": "Infra",
+      "url": "https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2015/09/Gandalf-the-Grey.jpg"
+  },
+  {
+      "name": "Gandalf",
+      "function": "IOS",
+      "url": "https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2015/09/Gandalf-the-Grey.jpg"
+  },
+]
+
 export default class Layout extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
         count: 0,
-        loading: 'true'
+        loading: 'true',
+        users: users,
+        filteredList: users,
+        selectedFilter: 'all',
       };
     }
-
     componentWillMount(){
-        this.setState({
-            loading: 'false'
-          });
+    this.setState({
+        loading: 'false'
+      });
+    }
+    selectFilter = filter => {
+      const searchText = filter.toLowerCase()
+      const filteredTexts = this.state.users.filter(row => {
+        return row.function.toLowerCase().indexOf(searchText) !== -1;
+      });
+      this.setState({
+        selectedFilter: filteredTexts.length > 1 ? 'all' : searchText,
+        filteredList:
+        searchText === 'all'
+            ? users
+            : filteredTexts
+      })
     }
   
     render() {
@@ -29,9 +67,20 @@ export default class Layout extends React.Component {
         }
       return (
         <div className="App-Container">
-            <Search/>
-            <Filter/>
-            <List/>
+            <Search 
+              selectFilter={this.selectFilter} 
+              filteredList={this.state.filteredList}
+              selectedFilter={this.state.selectedFilter}
+
+            />
+            <Filter 
+              selectFilter={this.selectFilter}
+              selectedFilter={this.state.selectedFilter}
+            />
+            {this.state.users.length}
+            <List 
+              users={this.state.filteredList}
+            />
         </div>
       );
     }
