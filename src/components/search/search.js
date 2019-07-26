@@ -6,8 +6,7 @@ export default function Search(props){
         <div className="searchContianer">
             <input 
                 className="searchInput" 
-                placeholder="Search" 
-                //value={props.selectedFilter === "all" ? target.value : props.selectedFilter} 
+                placeholder={props.selectedFilter === "all" ? "Search" : props.selectedFilter}
                 onChange={
                     filter => {
                         props.selectFilter(

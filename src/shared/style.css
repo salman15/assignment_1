@@ -5,7 +5,7 @@
 }
 
 .App-header {
-  background-color:  #11d1d1;
+  background-color:  #0931db;
   min-height: 10vh;
   display: flex;
   flex-direction: column;
@@ -16,7 +16,7 @@
 }
 
 .App-Container{
-  background-color:grey;
+  background-color:#11d1d1;
   padding:20px;
   max-width:60vw;
   margin: 5vw auto;
@@ -29,9 +29,12 @@
   white-space: nowrap;
   padding:20px;
   margin: 10px 0px;
-  background-color: #656565;
+  background-color: #0931db;
   border-radius: 5px;
+  color:white;
 }
+
+
 
 .searchInput {
   width: 100%;

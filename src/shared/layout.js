@@ -2,6 +2,7 @@ import React from 'react';
 import Search from '../components/search/search'
 import Filter from '../components/filter/filter';
 import List from '../components/list/list';
+import axios from 'axios';
 
 let users = [
   {
@@ -37,7 +38,34 @@ export default class Layout extends React.Component {
         selectedFilter: 'all',
       };
     }
+    
     componentWillMount(){
+      axios.get('https://sheetdb.io/api/v1/smyv5xfvpjqeh', {
+        withCredentials: true,
+        headers: {
+          "Access-Control-Allow-Origin": "http://localhost:3000",
+          "Access-Control-Allow-Credentials": "true",
+          'Authorization': 'Basic',
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+
+          
+
+        }
+      },
+      {
+        auth: {
+          username: "srpwcqp2",
+          password: "ej7s62xt2mrtefkqrepm"
+        }
+      }
+      )
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     this.setState({
         loading: 'false'
       });
@@ -80,6 +108,7 @@ export default class Layout extends React.Component {
             {this.state.users.length}
             <List 
               users={this.state.filteredList}
+              url={users[0].url}
             />
         </div>
       );
